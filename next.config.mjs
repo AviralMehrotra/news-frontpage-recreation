@@ -7,6 +7,13 @@ const nextConfig = {
         hostname: '**',
       },
     ],
+    dangerouslyAllowSVG: true,
+    minimumCacheTTL: 60,
+  },
+  logging: {
+    fetches: {
+      level: 'error',
+    },
   },
 };
 

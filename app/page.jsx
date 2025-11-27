@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import NewsGrid from "../components/organisms/NewsGrid";
+import NewsGridSkeleton from "../components/organisms/NewsGridSkeleton";
 import Header from "../components/organisms/Header";
 import Hero from "../components/organisms/Hero";
 import { fetchTopHeadlines } from "../lib/newsApi";
@@ -55,9 +56,7 @@ export default async function HomePage() {
         )}
 
         <div className="container mx-auto px-4 py-8">
-          <Suspense
-            fallback={<div className="text-center py-8">Loading news...</div>}
-          >
+          <Suspense fallback={<NewsGridSkeleton count={9} />}>
             <NewsGrid stories={newsData.topStories} />
           </Suspense>
         </div>
