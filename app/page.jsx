@@ -19,10 +19,11 @@ async function getNewsData() {
     return {
       topStories: newsData.articles,
       categories: [
+        "Business",
+        "Entertainment",
+        "Health",
         "Science",
         "Sports",
-        "Entertainment",
-        "Business",
         "Technology",
       ],
     };
@@ -30,10 +31,11 @@ async function getNewsData() {
     return {
       topStories: [],
       categories: [
+        "Business",
+        "Entertainment",
+        "Health",
         "Science",
         "Sports",
-        "Entertainment",
-        "Business",
         "Technology",
       ],
     };

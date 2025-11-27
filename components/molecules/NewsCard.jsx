@@ -22,7 +22,7 @@ export default function NewsCard({ article }) {
       {/* Content */}
       <div className="p-4">
         <h3 className="font-bold text-lg text-gray-900 mb-2 line-clamp-2 hover:text-red-600 transition-colors">
-          <Link href={`/news/${article.slug || article.id}`}>
+          <Link href={article.url} target="_blank" rel="noopener noreferrer">
             {article.title}
           </Link>
         </h3>

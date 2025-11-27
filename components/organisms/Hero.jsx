@@ -1,7 +1,7 @@
-import { Calendar, User } from 'lucide-react';
-import SafeImage from '../atoms/SafeImage';
-import Tag from '../atoms/Tag';
-import Button from '../atoms/Button';
+import { Calendar, User } from "lucide-react";
+import SafeImage from "../atoms/SafeImage";
+import Tag from "../atoms/Tag";
+import Button from "../atoms/Button";
 
 export default function Hero({ topStory }) {
   if (!topStory) return null;
@@ -17,15 +17,15 @@ export default function Hero({ topStory }) {
                 {topStory.category}
               </Tag>
             </div>
-            
+
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
               {topStory.title}
             </h1>
-            
+
             <p className="text-gray-600 text-lg mb-6 leading-relaxed">
               {topStory.excerpt}
             </p>
-            
+
             <div className="flex items-center gap-4 text-gray-500 text-sm mb-6">
               <div className="flex items-center">
                 <User size={16} className="mr-2" />
@@ -33,18 +33,18 @@ export default function Hero({ topStory }) {
               </div>
               <div className="flex items-center">
                 <Calendar size={16} className="mr-2" />
-                {new Date(topStory.publishedAt).toLocaleDateString('en-IN')}
+                {new Date(topStory.publishedAt).toLocaleDateString("en-IN")}
               </div>
             </div>
-            
-            <Button href={`/news/${topStory.slug || topStory.id}`}>
+
+            <Button href={topStory.url} target="_blank" rel="noopener noreferrer">
               Read Full Story
             </Button>
           </div>
 
           {/* Image */}
           <div className="order-1 md:order-2">
-            <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-lg">
+            <div className="relative aspect-4/3 rounded-lg overflow-hidden shadow-lg">
               <SafeImage
                 src={topStory.image}
                 alt={topStory.title}

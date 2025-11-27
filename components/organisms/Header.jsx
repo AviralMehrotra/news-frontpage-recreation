@@ -1,5 +1,6 @@
-import Link from 'next/link';
-import { Menu, Search, Bell } from 'lucide-react';
+import Link from "next/link";
+import { Menu, Search, Bell } from "lucide-react";
+import Image from "next/image";
 
 export default function Header() {
   return (
@@ -8,27 +9,58 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <div className="text-2xl font-bold text-red-600">
-              Live Hindustan
-            </div>
+            {/* Using the same logo of the Website Live Hindustan */}
+            <Image
+              src="https://www.livehindustan.com/static-content/1y/lh/img/lh-logo-desk.webp"
+              height={200}
+              width={200}
+              alt="Live Hindustan"
+            />
           </Link>
 
           {/* Navigation - Desktop */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-gray-700 hover:text-red-600 transition-colors">
+            <Link
+              href="/"
+              className="text-gray-700 hover:text-red-600 transition-colors"
+            >
               Home
             </Link>
-            <Link href="/news" className="text-gray-700 hover:text-red-600 transition-colors">
-              News
+            <Link
+              href="/category/business"
+              className="text-gray-700 hover:text-red-600 transition-colors"
+            >
+              Business
             </Link>
-            <Link href="/politics" className="text-gray-700 hover:text-red-600 transition-colors">
-              Politics
+            <Link
+              href="/category/entertainment"
+              className="text-gray-700 hover:text-red-600 transition-colors"
+            >
+              Entertainment
             </Link>
-            <Link href="/sports" className="text-gray-700 hover:text-red-600 transition-colors">
+            <Link
+              href="/category/health"
+              className="text-gray-700 hover:text-red-600 transition-colors"
+            >
+              Health
+            </Link>
+            <Link
+              href="/category/science"
+              className="text-gray-700 hover:text-red-600 transition-colors"
+            >
+              Science
+            </Link>
+            <Link
+              href="/category/sports"
+              className="text-gray-700 hover:text-red-600 transition-colors"
+            >
               Sports
             </Link>
-            <Link href="/entertainment" className="text-gray-700 hover:text-red-600 transition-colors">
-              Entertainment
+            <Link
+              href="/category/technology"
+              className="text-gray-700 hover:text-red-600 transition-colors"
+            >
+              Technology
             </Link>
           </nav>
 
