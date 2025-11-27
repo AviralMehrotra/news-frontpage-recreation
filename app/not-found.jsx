@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Home, ArrowLeft, Search, TrendingUp } from "lucide-react";
 import Header from "../components/organisms/Header";
+import Footer from "../components/organisms/Footer";
 import Button from "../components/atoms/Button";
 
 export default function NotFound() {
@@ -86,6 +87,8 @@ export default function NotFound() {
           </div>
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 }

@@ -3,6 +3,7 @@ import NewsGrid from "../components/organisms/NewsGrid";
 import NewsGridSkeleton from "../components/organisms/NewsGridSkeleton";
 import Header from "../components/organisms/Header";
 import Hero from "../components/organisms/Hero";
+import Footer from "../components/organisms/Footer";
 import { fetchTopHeadlines } from "../lib/newsApi";
 
 export const metadata = {
@@ -62,11 +63,7 @@ export default async function HomePage() {
         </div>
       </main>
 
-      <footer className="bg-gray-800 text-white py-8 mt-12">
-        <div className="container mx-auto px-4 text-center">
-          <p>&copy; Live Hindustan Clone.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

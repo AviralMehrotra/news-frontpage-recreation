@@ -13,3 +13,4 @@ export { default as Header } from "./organisms/Header";
 export { default as Hero } from "./organisms/Hero";
 export { default as NewsGrid } from "./organisms/NewsGrid";
 export { default as NewsGridSkeleton } from "./organisms/NewsGridSkeleton";
+export { default as Footer } from "./organisms/Footer";

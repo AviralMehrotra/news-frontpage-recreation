@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Header from "../../../components/organisms/Header";
 import NewsGrid from "../../../components/organisms/NewsGrid";
 import NewsGridSkeleton from "../../../components/organisms/NewsGridSkeleton";
+import Footer from "../../../components/organisms/Footer";
 import { fetchTopHeadlines } from "../../../lib/newsApi";
 
 const VALID_CATEGORIES = [
@@ -75,6 +76,8 @@ export default async function CategoryPage({ params }) {
           <NewsGrid stories={categoryNews} />
         </Suspense>
       </main>
+
+      <Footer />
     </div>
   );
 }
