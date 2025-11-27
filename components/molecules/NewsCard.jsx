@@ -1,22 +1,21 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { Calendar, User } from 'lucide-react';
+import Link from "next/link";
+import { Calendar, User } from "lucide-react";
+import SafeImage from "../atoms/SafeImage";
+import Tag from "../atoms/Tag";
 
 export default function NewsCard({ article }) {
   return (
     <article className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
       {/* Image */}
-      <div className="relative aspect-[16/10]">
-        <Image
+      <div className="relative aspect-16/10">
+        <SafeImage
           src={article.image}
           alt={article.title}
           fill
           className="object-cover"
         />
         <div className="absolute top-3 left-3">
-          <span className="bg-red-600 text-white px-2 py-1 rounded text-xs font-medium">
-            {article.category}
-          </span>
+          <Tag>{article.category}</Tag>
         </div>
       </div>
 
@@ -27,11 +26,11 @@ export default function NewsCard({ article }) {
             {article.title}
           </Link>
         </h3>
-        
-        <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+
+        <p className="text-gray-600 text-sm mb-4 line-clamp-2">
           {article.excerpt}
         </p>
-        
+
         <div className="flex items-center justify-between text-xs text-gray-500">
           <div className="flex items-center">
             <User size={12} className="mr-1" />
@@ -39,7 +38,7 @@ export default function NewsCard({ article }) {
           </div>
           <div className="flex items-center">
             <Calendar size={12} className="mr-1" />
-            {new Date(article.publishedAt).toLocaleDateString('en-IN')}
+            {new Date(article.publishedAt).toLocaleDateString("en-IN")}
           </div>
         </div>
       </div>

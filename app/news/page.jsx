@@ -1,51 +1,23 @@
 import { Suspense } from 'react';
 import Header from '../../components/organisms/Header';
 import NewsGrid from '../../components/organisms/NewsGrid';
+import { fetchTopHeadlines } from '../../lib/newsApi';
 
 export const metadata = {
   title: 'All News | Live Hindustan',
   description: 'Browse all latest news articles from Live Hindustan. Stay updated with breaking news from India and around the world.',
 };
 
-// ISR: Revalidate every 5 minutes
 export const revalidate = 300;
 
 async function getAllNews() {
-  // Mock news data - replace with actual API call
-  const mockNews = [
-    {
-      id: '1',
-      title: 'Breaking: Major Political Development in Delhi',
-      excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
-      image: '/api/placeholder/400/300',
-      category: 'Politics',
-      publishedAt: new Date().toISOString(),
-      author: 'News Reporter',
-      slug: 'breaking-political-development-delhi'
-    },
-    {
-      id: '2',
-      title: 'Cricket World Cup: India Wins Against Australia',
-      excerpt: 'In a thrilling match, India defeats Australia by 6 wickets...',
-      image: '/api/placeholder/400/300',
-      category: 'Sports',
-      publishedAt: new Date(Date.now() - 3600000).toISOString(),
-      author: 'Sports Reporter',
-      slug: 'sports-cricket-match-results'
-    },
-    {
-      id: '3',
-      title: 'Bollywood Star Announces New Movie Project',
-      excerpt: 'Popular actor reveals details about upcoming blockbuster...',
-      image: '/api/placeholder/400/300',
-      category: 'Entertainment',
-      publishedAt: new Date(Date.now() - 7200000).toISOString(),
-      author: 'Entertainment Reporter',
-      slug: 'entertainment-bollywood-news'
-    },
-  ];
-
-  return mockNews;
+  try {
+    const newsData = await fetchTopHeadlines('us', null, 50);
+    return newsData.articles;
+  } catch (error) {
+    console.error('Failed to fetch news:', error);
+    return [];
+  }
 }
 
 export default async function NewsPage() {

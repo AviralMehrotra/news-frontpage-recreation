@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import NewsGrid from "../components/organisms/NewsGrid";
 import Header from "../components/organisms/Header";
 import Hero from "../components/organisms/Hero";
+import { fetchTopHeadlines } from "../lib/newsApi";
 
 export const metadata = {
   title: "Live Hindustan - Latest News, Breaking News, Hindi News",
@@ -10,34 +11,33 @@ export const metadata = {
   keywords: "news, breaking news, latest news, hindi news, india news",
 };
 
-// ISR: Revalidate every 5 minutes for fresh news content
 export const revalidate = 300;
 
 async function getNewsData() {
-  // This will be replaced with actual NewsAPI call
-  const mockNews = {
-    topStories: [
-      {
-        id: "1",
-        title: "Breaking: Major Political Development in Delhi",
-        excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
-        image: "/api/placeholder/600/400",
-        category: "Politics",
-        publishedAt: new Date().toISOString(),
-        author: "News Reporter",
-      },
-      // More mock data...
-    ],
-    categories: [
-      "Politics",
-      "Sports",
-      "Entertainment",
-      "Business",
-      "Technology",
-    ],
-  };
-
-  return mockNews;
+  try {
+    const newsData = await fetchTopHeadlines("us", null, 20);
+    return {
+      topStories: newsData.articles,
+      categories: [
+        "Science",
+        "Sports",
+        "Entertainment",
+        "Business",
+        "Technology",
+      ],
+    };
+  } catch (error) {
+    return {
+      topStories: [],
+      categories: [
+        "Science",
+        "Sports",
+        "Entertainment",
+        "Business",
+        "Technology",
+      ],
+    };
+  }
 }
 
 export default async function HomePage() {
@@ -48,7 +48,9 @@ export default async function HomePage() {
       <Header />
 
       <main>
-        <Hero topStory={newsData.topStories[0]} />
+        {newsData.topStories.length > 0 && (
+          <Hero topStory={newsData.topStories[0]} />
+        )}
 
         <div className="container mx-auto px-4 py-8">
           <Suspense

@@ -1,8 +1,9 @@
 import { notFound } from 'next/navigation';
-import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, Calendar, User, Share2 } from 'lucide-react';
 import Header from '../../../components/organisms/Header';
+import SafeImage from '../../../components/atoms/SafeImage';
+import Tag from '../../../components/atoms/Tag';
 
 // ISR: Revalidate article pages every 10 minutes
 export const revalidate = 600;
@@ -18,29 +19,13 @@ export async function generateStaticParams() {
 }
 
 async function getArticle(slug) {
-  // Mock article data - replace with actual API call
-  const mockArticle = {
-    id: slug,
-    title: 'Breaking: Major Political Development in Delhi',
-    content: `
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
-      
-      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      
-      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-    `,
-    image: '/api/placeholder/800/500',
-    category: 'Politics',
-    publishedAt: new Date().toISOString(),
-    author: 'News Reporter',
-    excerpt: 'Major political developments unfold in the national capital...'
-  };
-
-  if (!mockArticle) {
+  try {
+    const { fetchArticleBySlug } = await import('../../../lib/newsApi');
+    return await fetchArticleBySlug(slug);
+  } catch (error) {
+    console.error('Error fetching article:', error);
     return null;
   }
-
-  return mockArticle;
 }
 
 export async function generateMetadata({ params }) {
@@ -98,9 +83,9 @@ export default async function ArticlePage({ params }) {
         {/* Article Header */}
         <header className="mb-8">
           <div className="mb-4">
-            <span className="inline-block bg-red-600 text-white px-3 py-1 rounded text-sm font-medium">
+            <Tag variant="primary" className="text-sm px-3 py-1">
               {article.category}
-            </span>
+            </Tag>
           </div>
           
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
@@ -131,7 +116,7 @@ export default async function ArticlePage({ params }) {
 
         {/* Featured Image */}
         <div className="mb-8">
-          <Image
+          <SafeImage
             src={article.image}
             alt={article.title}
             width={800}

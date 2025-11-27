@@ -1,6 +1,7 @@
-import Image from 'next/image';
-import Link from 'next/link';
 import { Calendar, User } from 'lucide-react';
+import SafeImage from '../atoms/SafeImage';
+import Tag from '../atoms/Tag';
+import Button from '../atoms/Button';
 
 export default function Hero({ topStory }) {
   if (!topStory) return null;
@@ -12,9 +13,9 @@ export default function Hero({ topStory }) {
           {/* Content */}
           <div className="order-2 md:order-1">
             <div className="mb-4">
-              <span className="inline-block bg-red-600 text-white px-3 py-1 rounded text-sm font-medium">
+              <Tag variant="primary" className="text-sm px-3 py-1">
                 {topStory.category}
-              </span>
+              </Tag>
             </div>
             
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
@@ -36,18 +37,15 @@ export default function Hero({ topStory }) {
               </div>
             </div>
             
-            <Link
-              href={`/news/${topStory.slug || topStory.id}`}
-              className="inline-block bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors font-medium"
-            >
+            <Button href={`/news/${topStory.slug || topStory.id}`}>
               Read Full Story
-            </Link>
+            </Button>
           </div>
 
           {/* Image */}
           <div className="order-1 md:order-2">
             <div className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-lg">
-              <Image
+              <SafeImage
                 src={topStory.image}
                 alt={topStory.title}
                 fill
