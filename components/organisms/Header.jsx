@@ -1,8 +1,12 @@
+"use client";
+
 import Link from "next/link";
-import { Menu, Search, Bell } from "lucide-react";
+import { Menu, Search, Bell, X } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
     <header className="bg-white shadow-sm border-b">
       <div className="container mx-auto px-4">
@@ -72,11 +76,71 @@ export default function Header() {
             <button className="p-2 text-gray-600 hover:text-gray-900 transition-colors">
               <Bell size={20} />
             </button>
-            <button className="md:hidden p-2 text-gray-600 hover:text-gray-900 transition-colors">
-              <Menu size={20} />
+            <button
+              className="md:hidden p-2 text-gray-600 hover:text-gray-900 transition-colors"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
+
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <div className="md:hidden border-t bg-white">
+            <nav className="px-4 py-4 space-y-2">
+              <Link
+                href="/"
+                className="block py-2 text-gray-700 hover:text-red-600 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Home
+              </Link>
+              <Link
+                href="/category/business"
+                className="block py-2 text-gray-700 hover:text-red-600 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Business
+              </Link>
+              <Link
+                href="/category/entertainment"
+                className="block py-2 text-gray-700 hover:text-red-600 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Entertainment
+              </Link>
+              <Link
+                href="/category/health"
+                className="block py-2 text-gray-700 hover:text-red-600 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Health
+              </Link>
+              <Link
+                href="/category/science"
+                className="block py-2 text-gray-700 hover:text-red-600 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Science
+              </Link>
+              <Link
+                href="/category/sports"
+                className="block py-2 text-gray-700 hover:text-red-600 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Sports
+              </Link>
+              <Link
+                href="/category/technology"
+                className="block py-2 text-gray-700 hover:text-red-600 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Technology
+              </Link>
+            </nav>
+          </div>
+        )}
       </div>
     </header>
   );
