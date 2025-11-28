@@ -6,6 +6,7 @@ import NewsGridSkeleton from "../../../components/organisms/NewsGridSkeleton";
 import Footer from "../../../components/organisms/Footer";
 import { fetchTopHeadlines } from "../../../lib/newsApi";
 
+// NewsAPI supported categories - prevents 404s for invalid categories
 const VALID_CATEGORIES = [
   "business",
   "entertainment",
@@ -16,22 +17,26 @@ const VALID_CATEGORIES = [
   "technology",
 ];
 
+// ISR: Revalidate every 5 minutes for fresh content
 export const revalidate = 300;
 
+// Pre-generate static pages for all valid categories at build time
 export async function generateStaticParams() {
   return VALID_CATEGORIES.map((category) => ({ slug: category }));
 }
 
+// Fetch news for specific category with error handling
 async function getCategoryNews(category) {
   try {
     const newsData = await fetchTopHeadlines("us", category, 30);
     return newsData.articles;
   } catch (error) {
     console.error("Failed to fetch category news:", error);
-    return [];
+    return []; // Return empty array to prevent page crash
   }
 }
 
+// Generate dynamic SEO metadata for each category page
 export async function generateMetadata({ params }) {
   const { slug: category } = await params;
 
@@ -47,9 +52,11 @@ export async function generateMetadata({ params }) {
   };
 }
 
+// Dynamic category page component
 export default async function CategoryPage({ params }) {
   const { slug: category } = await params;
 
+  // Validate category exists, show 404 if invalid
   if (!VALID_CATEGORIES.includes(category)) {
     notFound();
   }
@@ -72,6 +79,7 @@ export default async function CategoryPage({ params }) {
           </p>
         </div>
 
+        {/* Show skeleton while loading, then render news grid */}
         <Suspense fallback={<NewsGridSkeleton count={12} />}>
           <NewsGrid stories={categoryNews} />
         </Suspense>

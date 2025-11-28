@@ -6,6 +6,7 @@ import Hero from "../components/organisms/Hero";
 import Footer from "../components/organisms/Footer";
 import { fetchTopHeadlines } from "../lib/newsApi";
 
+// SEO metadata for homepage
 export const metadata = {
   title: "Live Hindustan - Latest News, Breaking News, Hindi News",
   description:
@@ -13,8 +14,10 @@ export const metadata = {
   keywords: "news, breaking news, latest news, hindi news, india news",
 };
 
+// ISR: Revalidate homepage every 5 minutes for fresh content
 export const revalidate = 300;
 
+// Fetch homepage news data with error handling
 async function getNewsData() {
   try {
     const newsData = await fetchTopHeadlines("us", null, 20);
@@ -30,6 +33,7 @@ async function getNewsData() {
       ],
     };
   } catch (error) {
+    // Return empty stories but keep categories for navigation
     return {
       topStories: [],
       categories: [
@@ -44,6 +48,7 @@ async function getNewsData() {
   }
 }
 
+// Homepage component with hero section and news grid
 export default async function HomePage() {
   const newsData = await getNewsData();
 
@@ -52,11 +57,13 @@ export default async function HomePage() {
       <Header />
 
       <main>
+        {/* Show hero section only if we have stories */}
         {newsData.topStories.length > 0 && (
           <Hero topStory={newsData.topStories[0]} />
         )}
 
         <div className="container mx-auto px-4 py-8">
+          {/* Suspense boundary for loading state */}
           <Suspense fallback={<NewsGridSkeleton count={9} />}>
             <NewsGrid stories={newsData.topStories} />
           </Suspense>
