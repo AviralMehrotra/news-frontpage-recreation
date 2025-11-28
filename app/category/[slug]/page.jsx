@@ -5,6 +5,7 @@ import NewsGrid from "../../../components/organisms/NewsGrid";
 import NewsGridSkeleton from "../../../components/organisms/NewsGridSkeleton";
 import Footer from "../../../components/organisms/Footer";
 import { fetchTopHeadlines } from "../../../lib/newsApi";
+import { generateSEOMetadata, SEO_CONFIGS } from "../../../components/atoms/SEOHead";
 
 // NewsAPI supported categories - prevents 404s for invalid categories
 const VALID_CATEGORIES = [
@@ -44,12 +45,13 @@ export async function generateMetadata({ params }) {
     return { title: "Category Not Found" };
   }
 
-  const categoryName = category.charAt(0).toUpperCase() + category.slice(1);
-
-  return {
-    title: `${categoryName} News | Live Hindustan`,
-    description: `Latest ${categoryName.toLowerCase()} news and updates from Live Hindustan. Stay informed with breaking ${categoryName.toLowerCase()} stories.`,
-  };
+  // Use predefined SEO config for the category
+  const seoConfig = SEO_CONFIGS.categories[category];
+  
+  return generateSEOMetadata({
+    ...seoConfig,
+    url: `https://localhost:3000/category/${category}`,
+  });
 }
 
 // Dynamic category page component

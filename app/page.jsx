@@ -5,14 +5,10 @@ import Header from "../components/organisms/Header";
 import Hero from "../components/organisms/Hero";
 import Footer from "../components/organisms/Footer";
 import { fetchTopHeadlines } from "../lib/newsApi";
+import { generateSEOMetadata, SEO_CONFIGS } from "../components/atoms/SEOHead";
 
-// SEO metadata for homepage
-export const metadata = {
-  title: "Live Hindustan - Latest News, Breaking News, Hindi News",
-  description:
-    "Get latest news, breaking news, and top stories from India and around the world. Stay updated with Live Hindustan.",
-  keywords: "news, breaking news, latest news, hindi news, india news",
-};
+// Generate SEO metadata using reusable component
+export const metadata = generateSEOMetadata(SEO_CONFIGS.homepage);
 
 // ISR: Revalidate homepage every 5 minutes for fresh content
 export const revalidate = 300;

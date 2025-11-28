@@ -9,6 +9,7 @@ export { default as SafeImage } from "./atoms/SafeImage";
 export { default as Tag } from "./atoms/Tag";
 export { default as Button } from "./atoms/Button";
 export { default as Skeleton } from "./atoms/Skeleton";
+export { generateSEOMetadata, SEO_CONFIGS } from "./atoms/SEOHead";
 
 // Molecules - Component combinations
 export { default as NewsCard } from "./molecules/NewsCard";
